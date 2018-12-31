@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-center mt-3">
     <div class="col-9">
-      <div class="card">
+      <div class="card mb-3">
         <div class="card-header bg-white">
           <div class="row">
             <div class="col-3">
@@ -16,26 +16,25 @@
                   </tr>
                 </tbody>
               </table>
-                  <% if @picture.user_id == current_user.id %>
-                    <tr>
-                      <td><%= link_to "編集する", edit_picture_path(@picture.id) %><td>
-                      <td><%= link_to "消去する", picture_path(@picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"}, class: "ml-3" %></td>
-                    </tr>
-                  <% end %>
-                  <% unless @picture.user_id == current_user.id %>
-                    <% if @favorite.present? %>
-                      <tr>
-                        <td><%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "mb-3" %></td>
-                        <td></td>
-                      </tr>
-                    <% else %>
-
-                        <td><%= link_to 'お気に入り登録', favorites_path(picture_id: @picture.id), method: :post, class: "mb-3" %></td>
-                        <td></td>
-
-                    <% end %>
-                  <% end %>
-
+              <% if @picture.user_id == current_user.id %>
+                <tr>
+                  <td><%= link_to "編集する", edit_picture_path(@picture.id) %><td>
+                     <td><%= link_to "消去する", picture_path(@picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"}, class: "ml-3" %></td>
+                </tr>
+              <% end %>
+              <% unless @picture.user_id == current_user.id %>
+                <% if @favorite.present? %>
+                  <tr>
+                    <td><%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "mb-3" %></td>
+                    <td></td>
+                  </tr>
+                <% else %>
+                  <tr>
+                    <td><%= link_to 'お気に入り登録', favorites_path(picture_id: @picture.id), method: :post, class: "mb-3" %></td>
+                    <td></td>
+                  </tr>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
