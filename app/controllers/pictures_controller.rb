@@ -12,6 +12,7 @@ class PicturesController < ApplicationController
   def new
     if params[:back]
       @picture = Picture.new(picture_params)
+      @picture.user_id = current_user.id
     else
      @picture = Picture.new
    end
@@ -19,6 +20,7 @@ class PicturesController < ApplicationController
 
   def confirm
     @picture = Picture.new(picture_params)
+    @picture.user_id = current_user.id
     render :new if @picture.invalid?
   end
 
