@@ -1,0 +1,40 @@
+<div class="container">
+  <h5 class="mt-4 mb-4">この内容でよろしいですか？</h1>
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <%= form_with(model: @picture, url: pictures_path, local: true) do |form| %>
+
+        <%= form.file_field :image %>
+        <%= form.hidden_field :title %>
+        <%= form.hidden_field :content %>
+
+
+        <div class="card">
+          <div class="card-body">
+            <%= image_tag @picture.image, class: "card-img mb-3" %>
+            <h5 class="card-title"><%= @picture.title %></h5>
+            <h6 class="card-text mt-3 mb-3 ml-2"><%= @picture.content %></h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-right mt-4">
+            <%= form.submit class: "btn btn-outline-primary", value: "Post"%>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form_with(model: @picture, url: new_picture_path, local: true, method: "get") do |form| %>
+
+        <%= form.file_field :image %>
+        <%= form.hidden_field :title %>
+        <%= form.hidden_field :content %>
+
+        <div class="row">
+          <div class="col text-right mt-1 mb-5">
+            <%= form.submit class: "btn btn-outline-primary", value: "戻る"%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

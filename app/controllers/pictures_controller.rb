@@ -1,30 +1,79 @@
 class PicturesController < ApplicationController
+
+  before_action :set_picture, only:[:show, :edit, :update, :destroy]
+  before_action :login, only:[:index, :new, :edit, :show, :destroy]
+  before_action :edit_picture, only:[:edit]
+
   def index
     @pictures = Picture.all
+    #@favorites = current_user.favorites
   end
 
   def new
-    @picture = Picture.new
+    if params[:back]
+      @picture = Picture.new(picture_params)
+    else
+     @picture = Picture.new
+   end
+  end
+
+  def confirm
+    @picture = Picture.new(picture_params)
+    render :new if @picture.invalid?
   end
 
   def create
-    Picture.create(picture_params)
-    #redirect_to new_picture_path
+    @picture = current_user.pictures.build(picture_params)
+    if @picture.save
+      redirect_to pictures_path, notice: "Postしました！"
+    else
+      render "new"
+    end
   end
 
   def show
+    @user = @picture.user
+    @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
 
   def edit
   end
 
+  def update
+    if @picture.update(picture_params)
+      redirect_to pictures_path, notice: "Postを編集しました！"
+    else
+      render "edit"
+    end
+  end
+
   def destroy
+    @picture.destroy
+    redirect_to pictures_path, notice: "Postを削除しました！"
   end
 
 
   private
 
   def picture_params
-    params.require(:picture).permit(:title, :content)
+    params.require(:picture).permit(:title, :content, :image, :image_cache)
   end
+
+  def set_picture
+    @picture = Picture.find(params[:id])
+  end
+
+  def login
+    if logged_in?
+    else
+      redirect_to new_session_path
+    end
+  end
+
+  def edit_picture
+    unless @picture.user_id == current_user.id
+      rendr "show", notice: "編集できません！"
+    end
+  end
+
 end

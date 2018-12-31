@@ -1,0 +1,35 @@
+<div class="container">
+  <h1 class="mt-4 mb-5">詳細</h1>
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>名前</th>
+            <td>画像太郎</td>
+          </tr>
+          <tr>
+            <th>タイトル</th>
+            <td><%= @picture.title %></td>
+          </tr>
+          <tr>
+            <th>画像</th>
+            <td><%= image_tag @picture.image, class: "img-thumbnail" %></td>
+          </tr>
+          <tr>
+            <th>コメント</th>
+            <td><%= @picture.content %></td>
+          </tr>
+          <tr>
+            <th>登録日時</th>
+            <td><%= @picture.created_at %></td>
+          </tr>
+          <tr>
+            <th>更新日時</th>
+            <td><%= @picture.updated_at %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

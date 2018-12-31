@@ -1,2 +1,51 @@
-<h1>Pictures#show</h1>
-<p>Find me in app/views/pictures/show.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center mt-3">
+    <div class="col-9">
+      <div class="card">
+        <div class="card-header bg-white">
+          <div class="row">
+            <div class="col-3">
+              <%= image_tag @user.image, class: "img-thumbnail" %>
+            </div>
+            <div class="co-5">
+              <table class="table">
+                <tbody>
+                  <tr class="border-bottom">
+                    <th>ユーザー</th>
+                    <td><%= @user.name %></td>
+                  </tr>
+                </tbody>
+              </table>
+                  <% if @picture.user_id == current_user.id %>
+                    <tr>
+                      <td><%= link_to "編集する", edit_picture_path(@picture.id) %><td>
+                      <td><%= link_to "消去する", picture_path(@picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"}, class: "ml-3" %></td>
+                    </tr>
+                  <% end %>
+                  <% unless @picture.user_id == current_user.id %>
+                    <% if @favorite.present? %>
+                      <tr>
+                        <td><%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "mb-3" %></td>
+                        <td></td>
+                      </tr>
+                    <% else %>
+
+                        <td><%= link_to 'お気に入り登録', favorites_path(picture_id: @picture.id), method: :post, class: "mb-3" %></td>
+                        <td></td>
+
+                    <% end %>
+                  <% end %>
+
+            </div>
+          </div>
+        </div>
+        <%= image_tag @picture.image, class: "img-thumbnail" %>
+        <h5 class="card-title mt-3 ml-4"><%= @picture.title %></h5>
+        <p class="card-text mt-3 ml-4"><%= @picture.content %></p>
+        <div class="card-footer text-right bg-white">
+          更新日時：<%= @picture.updated_at %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
