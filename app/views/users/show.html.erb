@@ -1,7 +1,19 @@
 <div class="container">
-  <h1 class="mt-4 mb-5">ユーザー詳細</h1>
+  <% if flash[:danger] %>
+    <div class="alert alert-danger alert-dismissible fade show">
+      <p><%= flash[:danger] %></p>
+      <button class="close" data-dismiss="alert">&times;</button>
+    </div>
+  <% end %>
+  <% if flash[:notice] %>
+    <div class="alert alert-warning alert-dismissible fade show">
+      <p><%= flash[:notice] %></p>
+      <button class="close" data-dismiss="alert">&times;</button>
+    </div>
+  <% end %>
+  <h4 class="mt-4 mb-5">ユーザー詳細</h4>
   <div class="row">
-    <div class="col-5">
+    <div class="col-lg-5">
       <div class="row">
         <div class="col-6">
           <%= image_tag @user.image, class: "img-thumbnail" %>
@@ -20,13 +32,47 @@
             </tbody>
           </table>
           <div class="ml-3">
-            <%= link_to "編集する", edit_user_path(@user.id) %>
+            <%= link_to "編集する", edit_user_path(@user.id), class: "btn btn-outline-primary btn-sm" %>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-7">
-
+    <div class="col-lg-7">
+      <h5 class="ml-3">Post履歴</h5>
+      <div class="row">
+        <div class="col-md-11">
+          <div class="row">
+            <% @pictures.reverse_each do |picture| %>
+              <div class="col-4">
+                <%= image_tag picture.image, class: "img-thumbnail" %>
+              </div>
+              <div class="col-8">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th>タイトル</th>
+                      <td><%= picture.title %></td>
+                    </tr>
+                    <tr>
+                      <th>コメント</th>
+                      <td><%= picture.content %></td>
+                    </tr>
+                    <tr>
+                      <th>投稿日</th>
+                      <td><%= picture.created_at %></td>
+                    </tr>
+                    <tr>
+                      <th>更新日</th>
+                      <td><%= picture.updated_at %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </div>

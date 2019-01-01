@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 row-scrollable">
+    <div class="col-md-8">
       <% @pictures.reverse_each do |picture| %>
         <div class="row justify-content-center">
           <div class="col-md-10 mb-1">
@@ -14,8 +14,17 @@
                     <table class="table">
                       <tbody>
                         <tr>
-                          <th>投稿ユーザー</th>
-                          <td><%= picture.user.name %></td>
+                          <th>
+                            <% unless picture.user.name == current_user.name %>
+                              投稿：
+                            <% end %>
+                          </th>
+                          <td>
+                            <% if picture.user.name == current_user.name %>
+                              <div class="font-weight-bold">自分の投稿です</div>
+                            <% else %>
+                              <%= picture.user.name %></td>
+                            <% end %>
                         </tr>
                         <tr>
                           <th></th>
@@ -29,13 +38,13 @@
               <div class="card-body">
                 <h5 class="card-title"><%= picture.title %></h5>
                 <%= image_tag picture.image, class: "card-img mb-3" %>
-                <%= link_to "詳細", picture_path(picture.id), class: "card-link" %>
+                <%= link_to "詳細", picture_path(picture.id), class: "card-link btn btn-outline-primary btn-sm" %>
                 <% unless picture.user_id == current_user.id %>
                   <% @favorite = current_user.favorites.find_by(picture_id: picture.id) %>
                   <% if @favorite.present? %>
-                    <%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "card-link" %>
+                    <%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "card-link card-link btn btn-outline-primary btn-sm" %>
                   <% else %>
-                    <%= link_to 'お気に入り登録', favorites_path(picture_id: picture.id), method: :post, class: "card-link"  %>
+                    <%= link_to 'お気に入り登録', favorites_path(picture_id: picture.id), method: :post, class: "card-link btn btn-outline-primary btn-sm"  %>
                   <% end %>
                 <% end %>
               </div>
@@ -45,21 +54,34 @@
       <% end %>
     </div>
     <div class="col-md-4">
+      <h5>ユーザー情報</h5>
+      <% if flash[:notice] %>
+        <div class="alert alert-success alert-dismissible fade show">
+          <p><%= flash[:notice] %></p>
+          <button class="close" data-dismiss="alert">&times;</button>
+        </div>
+      <% end %>
       <div class="row bg-white">
         <div class="col-6">
           <%= image_tag current_user.image, class: "img-thumbnail" %>
         </div>
         <div class="co-6">
-          <table class="table">
+          <table class="table mb-0">
             <tbody>
               <tr>
                 <th>名前</th>
                 <td><%= current_user.name %></td>
               </tr>
+              <tr>
+                <th></th>
+                <td></td>
+              </tr>
             </tbody>
           </table>
           <div class="ml-3">
-            <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+            <%= link_to "ユーザー詳細", user_path(current_user.id), class: "btn btn-outline-primary btn-sm" %><br>
+            <%= link_to "お気に入り一覧", favorite_users_path, class: "btn btn-outline-primary btn-sm mt-3" %><br>
+            <%= link_to "ログアウト", session_path(current_user.id), method: :delete, class: "btn btn-outline-primary btn-sm mt-3 mb-3" %>
           </div>
         </div>
       </div>

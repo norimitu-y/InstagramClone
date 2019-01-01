@@ -27,7 +27,7 @@ class PicturesController < ApplicationController
   def create
     @picture = current_user.pictures.build(picture_params)
     if @picture.save
-      redirect_to pictures_path, notice: "Postしました！"
+      redirect_to pictures_path, notice: "新しくPostしました！"
     else
       render "new"
     end
@@ -74,7 +74,7 @@ class PicturesController < ApplicationController
 
   def edit_picture
     unless @picture.user_id == current_user.id
-      rendr "show", notice: "編集できません！"
+      rendr "show", danger: "編集できません。ユーザーを確認して下さい！"
     end
   end
 

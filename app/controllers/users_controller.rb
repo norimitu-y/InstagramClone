@@ -10,13 +10,14 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to user_path(@user.id)
+      redirect_to new_session_path
     else
       render "new"
     end
   end
 
   def show
+    @pictures = @user.pictures
   end
 
   def edit
@@ -29,6 +30,11 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+  def favorite
+    @favorites = current_user.favorites
+  end
+
 
 
   private
@@ -43,7 +49,7 @@ class UsersController < ApplicationController
 
   def edit_user
     unless @user.id == current_user.id
-      render "show", notice: "編集できません！"
+      render "show", danger: "編集できません。ユーザーを確認してください！"
     end
-  end    
+  end
 end

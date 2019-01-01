@@ -1,4 +1,10 @@
 <div class="container">
+  <% if flash[:danger] %>
+    <div class="alert alert-danger alert-dismissible fade show">
+      <p><%= flash[:danger] %></p>
+      <button class="close" data-dismiss="alert">&times;</button>
+    </div>
+  <% end %>
   <div class="row justify-content-center mt-3">
     <div class="col-9">
       <div class="card mb-3">
@@ -11,26 +17,35 @@
               <table class="table">
                 <tbody>
                   <tr class="border-bottom">
-                    <th>ユーザー</th>
-                    <td><%= @user.name %></td>
+                    <th>
+                      <% unless @picture.user.name == current_user.name %>
+                        投稿：
+                      <% end %>
+                    </th>
+                    <td>
+                      <% if @picture.user.name == current_user.name %>
+                        <div class="font-weight-bold">自分の投稿です</div>
+                      <% else %>
+                        <%= @picture.user.name %></td>
+                      <% end %>
                   </tr>
                 </tbody>
               </table>
               <% if @picture.user_id == current_user.id %>
                 <tr>
-                  <td><%= link_to "編集する", edit_picture_path(@picture.id) %><td>
-                     <td><%= link_to "消去する", picture_path(@picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"}, class: "ml-3" %></td>
+                  <td><%= link_to "編集する", edit_picture_path(@picture.id), class: "btn btn-outline-primary btn-sm"%><td>
+                     <td><%= link_to "消去する", picture_path(@picture.id), method: :delete, data: {confirm: "本当に削除していいですか？"}, class: "ml-3 btn btn-outline-primary btn-sm" %></td>
                 </tr>
               <% end %>
               <% unless @picture.user_id == current_user.id %>
                 <% if @favorite.present? %>
                   <tr>
-                    <td><%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "mb-3" %></td>
+                    <td><%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, class: "mb-3 btn btn-outline-primary btn-sm" %></td>
                     <td></td>
                   </tr>
                 <% else %>
                   <tr>
-                    <td><%= link_to 'お気に入り登録', favorites_path(picture_id: @picture.id), method: :post, class: "mb-3" %></td>
+                    <td><%= link_to 'お気に入り登録', favorites_path(picture_id: @picture.id), method: :post, class: "mb-3 btn btn-outline-primary btn-sm" %></td>
                     <td></td>
                   </tr>
                 <% end %>

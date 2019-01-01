@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 ">
+      <h5 class="mt-4 mb-4">お気に入り一覧</h5>
+      <div class="row no-gutters ml-3">
+        <% @favorites.each do |favorite| %>
+          <div class="col-4">
+            <%= image_tag favorite.picture.image, class: "img-thumbnail" %>
+          </div>
+          <div class="col-8">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>タイトル</th>
+                  <td><%= favorite.picture.title %></td>
+                </tr>
+                <tr>
+                  <th>コメント</th>
+                  <td><%= favorite.picture.content %></td>
+                </tr>
+                <tr>
+                  <th>投稿日</th>
+                  <td><%= favorite.picture.created_at %></td>
+                </tr>
+                <tr>
+                  <th>更新日</th>
+                  <td><%= favorite.picture.updated_at %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
