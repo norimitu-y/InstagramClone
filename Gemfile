@@ -59,3 +59,5 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 gem 'bcrypt', '3.1.11'
+
+gem 'rails_12factor', group: :production
