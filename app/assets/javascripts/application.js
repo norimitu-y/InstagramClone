@@ -10,8 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= repuire jquery_ujs
+//= require require jquery
+//= repuire require rails-ujs
 //= require turbolinks
 //= require jquery/dist/jquery.min.js
 //= require popper.js/dist/popper.min.js
