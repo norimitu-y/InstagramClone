@@ -14,6 +14,6 @@
 //= repuire jquery_ujs
 //= require turbolinks
 //= require jquery/dist/jquery.js
-
-//= require bootstrap/dist/js/bootstrap.bundle.min.js
+//= require popper.js/dist/popper.min.js
+//= require bootstrap/dist/js/bootstrap.min.js
 //= require_tree .
