@@ -14,7 +14,7 @@
 //= repuire rails-ujs
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+
 //= require jquery/dist/jquery.min.js
 //= require popper.js/dist/popper.min.js
 //= require bootstrap/dist/js/bootstrap.min.js
