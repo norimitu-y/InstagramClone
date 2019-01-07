@@ -63,5 +63,3 @@ gem 'bcrypt', '3.1.11'
 gem 'rails_12factor', group: :production
 
 gem 'jquery-rails'
-
-gem 'jquery-ui-rails'
