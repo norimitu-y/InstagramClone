@@ -75,7 +75,7 @@ class PicturesController < ApplicationController
 
   def edit_picture
     unless @picture.user_id == current_user.id
-      rendr "show", danger: "編集できません。ユーザーを確認して下さい！"
+      render "show", danger: "編集できません。ユーザーを確認して下さい！"
     end
   end
 
