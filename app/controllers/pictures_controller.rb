@@ -1,7 +1,7 @@
 class PicturesController < ApplicationController
 
   before_action :set_picture, only:[:show, :edit, :update, :destroy]
-  before_action :login, only:[:index, :new, :edit, :show, :destroy]
+  before_action :login, only:[:index, :new, :show, :edit, :destroy]
   before_action :edit_picture, only:[:edit]
 
   def index
@@ -52,7 +52,7 @@ class PicturesController < ApplicationController
 
   def destroy
     @picture.destroy
-    redirect_to pictures_path, notice: "Postを削除しました！"
+    render "show", notice: "Postを削除しました！"
   end
 
 
@@ -75,7 +75,7 @@ class PicturesController < ApplicationController
 
   def edit_picture
     unless @picture.user_id == current_user.id
-      render "show", danger: "編集できません。ユーザーを確認して下さい！"
+      redirect_to picture_path, notice: "編集できません。ユーザーを確認して下さい！"
     end
   end
 
